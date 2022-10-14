@@ -17,7 +17,7 @@ Points_t points_init(int8_t startx, int8_t endx, int8_t starty, int8_t endy)
 
 Points_t boat_movement(Points_t points, int* matrix)
 {
-     navswitch_update(); 
+    navswitch_update(); 
         
     if (navswitch_push_event_p (NAVSWITCH_NORTH)) {
         tinygl_clear();
@@ -55,15 +55,16 @@ Points_t boat_movement(Points_t points, int* matrix)
         tinygl_draw_line(points.start, points.end, 1); 
         }
 
-    if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
-        if (points.start.x == points.end.x) {
-            uint8_t j = points.start.y;
-            while (j < (points.end.y + 1)) {
-                *(matrix + ((5 * points.start.x) + j)) = 1;
-                j--;
-            }
+        if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
+            for (int i=0; i < 5; i++) {
+                for (int j=0 ; j< 7; j++) {
+                    tinygl_point_t t_point = tinygl_point(i,j);
+                    if (tinygl_pixel_get(t_point) == 1) {
+                        *(matrix + (5 * j) + i) = 1;
+                    }
+                }
+            }  
         }
-    }
     return points;
 }
 

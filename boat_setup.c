@@ -7,7 +7,7 @@
 
 Points_t boat_size(uint8_t i) {
     int8_t start_x, end_x, start_y, end_y; 
-    int8_t boats[5] = {3, 1, 2, 2, 3};
+    int8_t boats[5] = {3, 2, 1, 1};
     start_y = 0;
     end_y = 0;
     if (boats[i] == 1) {
@@ -28,12 +28,13 @@ void display_boats(int* matrix)
 {
     for (uint8_t i=0; i < 5; i++) {
         for (uint8_t j=0; j<7; j++) {
-            if (*(matrix + ((5 * i) + j)) == 1) {
+            if (*(matrix + (5 * j) + i) == 1) {
                 display_pixel_set(i, j, 1);
             }
 
         }
     }
+    display_update();
 }
 
 void set_up(void) {
@@ -46,7 +47,9 @@ void set_up(void) {
         {0,0,0,0,0},
         {0,0,0,0,0}
     };
-    for (uint8_t i = 0; i < 5; i++) {
+    tinygl_init (1000);
+
+    for (uint8_t i = 0; i < 4; i++) {
         Points_t points = boat_size(i);
         tinygl_draw_line(points.start, points.end, 1);
         int going = 0;
@@ -55,11 +58,12 @@ void set_up(void) {
             
             pacer_wait();
             points = boat_movement(points, (int*)matrix);
+            display_boats((int*)matrix);
             tinygl_update();
             if (navswitch_push_event_p(NAVSWITCH_PUSH)){
-                going =1;
-            display_boats((int*)matrix);
-            display_update();    
+                going = 1;
+            
+                
             }
         }
     }

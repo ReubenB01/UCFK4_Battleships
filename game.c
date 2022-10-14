@@ -2,29 +2,8 @@
 #include "pacer.h"
 #include "navswitch.h"
 #include "tinygl.h"
-<<<<<<< HEAD
 #include "movement.h"
 #include "boat_setup.h"
-
-
-int main(void)
-{
-
-    system_init();
-    navswitch_init();
-    display_init();
-    pacer_init (500);
-    tinygl_init(500);
-
-
-    while (1)
-    {
-        set_up();
-    }
-    
-
-    
-=======
 #include "../fonts/font3x5_1.h"
 #include "ir_uart.h"
 #include <stdbool.h>
@@ -124,9 +103,10 @@ int main (void)
     navswitch_init();
 
     pacer_init (PACER_RATE);
-    
+    set_up();
     while(1)
     {
+        
         pacer_wait ();
 
         tinygl_update();   
@@ -167,5 +147,4 @@ int main (void)
         win_screen(board);
     }
     return 0;
->>>>>>> 2ad4912eac3b9d61ee0ec8487444d8ea8e33369c
 }
