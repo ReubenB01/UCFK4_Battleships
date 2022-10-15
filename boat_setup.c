@@ -37,16 +37,7 @@ void display_boats(int* matrix)
     display_update();
 }
 
-void set_up(void) {
-    int matrix[7][5] = {
-        {0,0,0,0,0},
-        {0,0,0,0,0},
-        {0,0,0,0,0},
-        {0,0,0,0,0},
-        {0,0,0,0,0},
-        {0,0,0,0,0},
-        {0,0,0,0,0}
-    };
+void set_up(int* matrix) {
     tinygl_init (1000);
 
     for (uint8_t i = 0; i < 4; i++) {

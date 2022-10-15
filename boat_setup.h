@@ -10,7 +10,7 @@
 
 Points_t boat_size(uint8_t i);
 
-void set_up(void);
+void set_up(int* matrix);
 
 void display_boats(int* matrix);
 

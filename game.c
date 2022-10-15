@@ -1,30 +1,18 @@
-#include "system.h"
-#include "pacer.h"
-#include "navswitch.h"
-#include "tinygl.h"
-#include "movement.h"
-#include "boat_setup.h"
-#include "../fonts/font3x5_1.h"
-#include "ir_uart.h"
-#include <stdbool.h>
+#include "game.h"
 
-#define PACER_RATE 500
-#define MESSAGE_RATE 10
-#define MAX_X 4
-#define MAX_Y 6
 
 //top of ucfk4 is where usb plugs in//
 
-void hit_message (int board[7][5], int x_cord, int y_cord);
-void display_hits(int board[7][5]);
-void win_screen (int board[7][5]);
+void hit_message (int matrix[7][5], int x_cord, int y_cord);
+void display_hits(int matrix[7][5]);
+void win_screen (int matrix[7][5]);
 
-void hit_message (int board[7][5], int x_cord, int y_cord)
+void hit_message (int matrix[7][5], int x_cord, int y_cord)
 {
     int (*ptr)[5];
-    ptr = board;
+    ptr = matrix;
     
-    if (board[y_cord][x_cord] == 1)
+    if (matrix[y_cord][x_cord] == 1)
     {
         ptr[y_cord][x_cord] = 2; //set coordinate in matrix to 2 so it is lit up
         tinygl_draw_message (" HIT", tinygl_point(0,1), 1); //display hit if there is a 1 at chosen tile
@@ -35,21 +23,21 @@ void hit_message (int board[7][5], int x_cord, int y_cord)
     }
 }
 
-void display_hits(int board[7][5])
+void display_hits(int matrix[7][5])
 {
     int x = 0;
     int y = 0;
     
     for(x = 0; x < MAX_X; x++) {      //iterate through board matrix, if index == 2 a ship has been hit at that tile
         for (y = 0; y < MAX_Y; y++) {
-            if (board[y][x] == 2) {
+            if (matrix[y][x] == 2) {
                 tinygl_draw_point(tinygl_point(x, y), 1);
             }
         }
     }
 }
 
-void win_screen (int board[7][5])
+void win_screen (int matrix[7][5])
 {
     int x = 0;
     int y = 0;
@@ -57,7 +45,7 @@ void win_screen (int board[7][5])
     
     for(x = 0; x < MAX_X; x++) {      //iterate through board matrix, if no ships left there is a winner
         for (y = 0; y < MAX_Y; y++) {
-            if (board[y][x] == 1)
+            if (matrix[y][x] == 1)
             {
                 count++;
             }
@@ -76,10 +64,20 @@ void win_screen (int board[7][5])
     
 }
 
+int matrix[7][5] = {
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0},
+                 {0, 0, 0, 0, 0}
+                 };
+
 
 int main (void)
 {
-    int board[7][5] = {
+    /*int board[7][5] = {
                  {1, 1, 1, 1, 0},
                  {0, 0, 0, 0, 0},
                  {0, 0, 0, 0, 0},
@@ -88,6 +86,7 @@ int main (void)
                  {0, 0, 0, 0, 0},
                  {0, 0, 0, 0, 0}
                  };
+    */
     
     int x = 0;
     int y = 0;
@@ -103,7 +102,7 @@ int main (void)
     navswitch_init();
 
     pacer_init (PACER_RATE);
-    set_up();
+    set_up((int*)matrix);
     while(1)
     {
         
@@ -139,12 +138,12 @@ int main (void)
         
         if (navswitch_push_event_p(NAVSWITCH_PUSH))
         {
-            hit_message(board, x, y);
+            hit_message(matrix[7][5], x, y);
         }
         
         tinygl_draw_point (tinygl_point(x, y), 1);
-        display_hits(board);
-        win_screen(board);
+        display_hits(matrix[7][5]);
+        win_screen(matrix[7][5]);
     }
     return 0;
 }
