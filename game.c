@@ -6,9 +6,6 @@
 #define BLINKING 100
 //top of ucfk4 is where usb plugs in//
 
-//void hit_message (int matrix[7][5], int x_cord, int y_cord);
-//void display_hits(int matrix[7][5]);
-
 void hit_message (int matrix[7][5], int x_cord, int y_cord)
 {
     int (*ptr)[5];
