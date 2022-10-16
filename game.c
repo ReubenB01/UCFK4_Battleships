@@ -1,34 +1,38 @@
 #include "game.h"
-#include "button.h"
 
-#define PACER_RATE 500
-#define MESSAGE_RATE 10
-#define BLINKING 100
-//top of ucfk4 is where usb plugs in//
 
-void hit_message (int matrix[7][5], int x_cord, int y_cord)
+void inititalise_tinygl(void)
+{
+    tinygl_init(1750);
+    tinygl_font_set (&font3x5_1);
+    tinygl_text_speed_set(MESSAGE_RATE);
+    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
+}
+
+
+void hit_message (int matrix[7][5], int x_cord, int y_cord, int* count)
 {
     int (*ptr)[5];
     ptr = matrix;
-
     tinygl_clear();
-    if (matrix[y_cord][x_cord] == 1)
+    
+    if (matrix[y_cord][x_cord] == 1) //if chosen coordinate is a ship
     {
-        ptr[y_cord][x_cord] = 2; //set coordinate in matrix to 2 so it is lit up
-        tinygl_draw_message("HIT", tinygl_point(0,1), 1); //display hit if there is a 1 at chosen tile
+        ptr[y_cord][x_cord] = 2; //set coordinate in matrix to 2
+        *count = *count + 1;
+        tinygl_draw_message("HIT", tinygl_point(0,1), 1); //display hit message
     }
     else if (matrix[y_cord][x_cord] == 0)
     {
-        tinygl_draw_message("MISS", tinygl_point(0,1), 1); //display miss if there is a 0 at chosen tile
-        ptr[y_cord][x_cord] = 3;
+        tinygl_draw_message("MISS", tinygl_point(0,1), 1); //display miss message
+        ptr[y_cord][x_cord] = 3; //set coordinate in matrix to 3 
     }
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 2000; i++) { //
         pacer_wait();
         tinygl_update();
     }
     tinygl_clear();
 }
-
 
 
 void display_hits(int their_matrix[7][5])
@@ -39,13 +43,13 @@ void display_hits(int their_matrix[7][5])
     static int blink_rate = 0;
     static int led_state = 0;
     
-    for(x = 0; x < MAX_X; x++) {      //iterate through board matrix, if index == 2 a ship has been hit at that tile
+    for(x = 0; x < MAX_X; x++) { //iterate through board matrix
         for (y = 0; y < MAX_Y; y++) {
-            if (their_matrix[y][x] == 2) {
+            if (their_matrix[y][x] == 2) { //if coordinate in matrix is a 2(hit), blink the led
                 if (blink_rate == BLINKING) {
                     tinygl_draw_point(tinygl_point(x, y), led_state);
                 }
-            } else if (their_matrix[y][x] == 3) {
+            } else if (their_matrix[y][x] == 3) { // if coordinate in matrix is a 3(miss), turn led on
                 tinygl_draw_point(tinygl_point(x, y), 1);
             }
         }
@@ -63,51 +67,54 @@ void display_hits(int their_matrix[7][5])
 }
 
 
-
-void win_screen(int count)
+void win_screen(int* count)
 {
-    if (count == 6)
+    if (*count == 3) // if count == 3, all ships are sunk
     {
         tinygl_clear();
-        tinygl_text("WIN");
+        tinygl_text("WIN"); //display win message on winner's board
+        
         while(1)
         {
             pacer_wait();
             tinygl_update();
         }
-    }
-    
+    }   
 }
 
-void player_movement(int* x, int* y) {
+void player_movement(int* x, int* y) 
+{
     if (navswitch_push_event_p(NAVSWITCH_NORTH))
-        {
-            tinygl_draw_point (tinygl_point(*x, *y), 0);
-            *y = *y - 1;    
-        }
+    {
+        tinygl_draw_point (tinygl_point(*x, *y), 0);
+        *y = *y - 1;    
+    }
         
     if (navswitch_push_event_p(NAVSWITCH_SOUTH))
-        {
-            tinygl_draw_point (tinygl_point(*x, *y), 0);
-            *y = *y + 1;    
-        }
+    {
+        tinygl_draw_point (tinygl_point(*x, *y), 0);
+        *y = *y + 1;    
+    }
         
     if (navswitch_push_event_p(NAVSWITCH_EAST))
-        {
-            tinygl_draw_point (tinygl_point(*x, *y), 0);
-            *x =*x + 1;    
-        }
+    {
+        tinygl_draw_point (tinygl_point(*x, *y), 0);
+        *x =*x + 1;    
+    }
         
     if (navswitch_push_event_p(NAVSWITCH_WEST))
-        {
-            tinygl_draw_point (tinygl_point(*x, *y), 0);
-            *x= *x - 1;    
-        }        
+    {
+        tinygl_draw_point (tinygl_point(*x, *y), 0);
+        *x= *x - 1;    
+    }        
 }
 
-void update_matrix(int x, int y, int* their_matrix) {
+
+void update_matrix(int x, int y, int* their_matrix)
+{
     *(their_matrix + (5 * y) + x) = 1;
 }
+
 
 void ready_signal(void)
 {
@@ -124,16 +131,16 @@ void ready_signal(void)
     }
 }
 
-int first_turn(void) {
-
-    tinygl_text("?");
+int first_turn(void) 
+{
+    tinygl_text(" BATTLE SHIPS"); //start screen text
 
     while(1) {
         navswitch_update();
         tinygl_update();
         if (navswitch_push_event_p (NAVSWITCH_PUSH)) {
             display_clear();
-            tinygl_text_mode_set (TINYGL_TEXT_MODE_STEP);
+            tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
             tinygl_update();
             ir_uart_putc_nocheck(50);
             return 1;
@@ -141,7 +148,7 @@ int first_turn(void) {
         if (ir_uart_read_ready_p()) {
             if (ir_uart_getc() == 50) {
                 display_clear();
-                tinygl_text_mode_set (TINYGL_TEXT_MODE_STEP);
+                tinygl_text_mode_set (TINYGL_TEXT_MODE_SCROLL);
                 tinygl_update();
                 ir_uart_putc_nocheck(50);
                 return 0;
@@ -189,9 +196,7 @@ void send_point(int* x, int* y )
 
 
 int main (void)
-{
-
-    
+{    
     int x = 0;
     int y = 0;
     
@@ -199,16 +204,14 @@ int main (void)
     pacer_init (PACER_RATE);
     display_init();
     ir_uart_init();
-
-    tinygl_init(PACER_RATE);
-    tinygl_font_set (&font3x5_1);
-    tinygl_text_speed_set(MESSAGE_RATE);
-    tinygl_text_mode_set(TINYGL_TEXT_MODE_STEP);
+    inititalise_tinygl(); // initialise tinygl
     navswitch_init();
-    //int count = 0;
+    
+    int count = 0; // counts how many hits player has
     int turn = first_turn();
+    
     set_up((int*)my_matrix);
-    //ready_signal();
+    ready_signal();
     display_clear();
     display_update();
     
@@ -228,7 +231,6 @@ int main (void)
                 tinygl_draw_point (tinygl_point(x, y), 0);
                 
                 turn = 2;
-                
             } 
         }
     
@@ -236,14 +238,14 @@ int main (void)
             char shot = ir_uart_getc();
             if (shot == 'h') {
                 update_matrix(x, y, (int*)their_matrix);
-                hit_message(their_matrix, x, y);
+                hit_message(their_matrix, x, y, &count);
                 turn = 0;
                 
             } else if (shot == 'm') { 
-                hit_message(their_matrix, x, y);
+                hit_message(their_matrix, x, y, &count);
                 turn = 0;
             }
-    }
+        }
         
     if (turn == 0) {
         if (ir_uart_read_ready_p()) {    
@@ -255,11 +257,9 @@ int main (void)
                     if ( c == r_character) {
                         x = i;
                         y = j;
-                    }
-
-                
+                    } 
+                }
             }
-        }
         if (my_matrix[y][x] == 1) {
             ir_uart_putc('h');
         } else {
@@ -267,14 +267,11 @@ int main (void)
         }
         turn = 1;
         }
-
-
-    }
-
-        
-    }  
-    //win_screen(count);
+    }    
+} 
     
-    
+     
+    win_screen(&count); // checks if a player has won
     }
 }
+
