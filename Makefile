@@ -16,12 +16,12 @@ all: game.out
 
 
 # Compile: create object files from C source files.
-game.o: game.c ../../drivers/avr/system.h ../../utils/tinygl.h  ../../utils/pacer.h ../../drivers/navswitch.h ../../utils/pacer.c ../../utils/font.h ../../drivers/avr/timer.c boat_setup.c ../../drivers/button.c ../../drivers/avr/ir_uart.h ../../drivers/avr/prescale.c ../../drivers/avr/usart1.c ../../drivers/avr/timer0.c gameplay.h led_display.h
+game.o: game.c ../../drivers/avr/system.h ../../utils/tinygl.h  ../../utils/pacer.h ../../drivers/navswitch.h ../../utils/font.h ../../drivers/button.c ../../drivers/avr/ir_uart.h gameplay.h led_display.h boat_setup.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 
 
-boat_setup.o: boat_setup.c ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/button.h ../../utils/pacer.h
+boat_setup.o: boat_setup.c ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/button.h ../../drivers/navswitch.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 system.o: ../../drivers/avr/system.c ../../drivers/avr/system.h
@@ -66,7 +66,7 @@ ir_uart.o: ../../drivers/avr/ir_uart.c ../../drivers/avr/ir_uart.h ../../drivers
 led_display.o: led_display.c ../../drivers/avr/system.h ../../utils/pacer.h ../../fonts/font3x5_1.h ../../utils/tinygl.c game.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-gameplay.o: ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/navswitch.h gameplay.h
+gameplay.o: gameplay.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/navswitch.h game.h
 
 
 
