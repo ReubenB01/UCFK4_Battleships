@@ -10,6 +10,7 @@
 #include "boat_setup.h"
 #include "../fonts/font3x5_1.h"
 #include "ir_uart.h"
+#include "gameplay.h"
 
 
 #define PACER_RATE 500
@@ -17,6 +18,10 @@
 #define MAX_X 5
 #define MAX_Y 7
 #define BLINKING 100
+#define HIT 'h'
+#define MISS 'm'
+#define LOSE 'l'
+#define NUM_BOATS 4
 
 /**
 Takes coordinate player has fired at. 
@@ -33,22 +38,6 @@ if matrix coordinate = 2, blink the led.
 if matrix coordinate = 3, leave led on.
 */
 void display_hits(int board[7][5]);
-
-
-/**
-If all ship tiles have been hit display "WIN" message for winner.
-End game.
-*/
-void win_screen(int* count);
-void update_matrix(int x, int y, int* their_matrix);
-void player_movement(int* x, int* y);
-
-
-/**
-//send ready signal after ships have been placed
-*/
-void ready_signal(void);
-int first_turn(void);
 
 
 /**
