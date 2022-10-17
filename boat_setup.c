@@ -7,6 +7,7 @@
 #include "boat_setup.h"
 
 
+
 Points_t points_init(int8_t start_x, int8_t end_x, int8_t start_y, int8_t end_y) 
 {
     Points_t points;
@@ -17,6 +18,13 @@ Points_t points_init(int8_t start_x, int8_t end_x, int8_t start_y, int8_t end_y)
     return points;
 }
 
+
+/*
+Takes in the co-ordinates of the struct
+When button pressed in the set-up this
+rotates the boat from either horizontal
+or vertical to have variability in boat placements
+*/
 Points_t rotate(Points_t points, uint8_t current_boat) {
     tinygl_clear();
     if (points.start.x == points.end.x && points.start.x) {
@@ -32,6 +40,13 @@ Points_t rotate(Points_t points, uint8_t current_boat) {
     return points;
 }
 
+
+/*
+Takes the struct, the boat matrix, the placement and the boat size
+Moves the current boat around the board with the navswitch
+this is achieved by updates the coordinates of the start
+and end positon -- when navswitch is pushed this sets boat
+*/
 Points_t boat_movement(Points_t points, int* boat_matrix, int* placed, uint8_t current_boat)
 {
     navswitch_update(); 
@@ -74,7 +89,7 @@ Points_t boat_movement(Points_t points, int* boat_matrix, int* placed, uint8_t c
         }
     }
           
-    button_update ();
+    button_update();
 
     if (button_push_event_p(0)) {
         points = rotate(points, current_boat); //recieves new coordinates from rotate function
@@ -83,7 +98,9 @@ Points_t boat_movement(Points_t points, int* boat_matrix, int* placed, uint8_t c
     return points;
 }
 
-
+/*
+Sets the length of the current boat
+*/
 Points_t boat_size(uint8_t current_boat) {
     int8_t start_x, end_x, start_y, end_y; 
     start_y = 0;

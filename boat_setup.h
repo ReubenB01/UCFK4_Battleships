@@ -24,7 +24,16 @@ typedef struct {
     tinygl_point_t end;
 } Points_t;
 
+
 /*
+Takes in the x and y co-ordinates of start and end point in struct
+Initialises boat sizes with the Points_t struct
+*/
+Points_t points_init(int8_t, int8_t, int8_t, int8_t);
+
+
+/*
+Takes in the co-ordinates of the struct
 When button pressed in the set-up this
 rotates the boat from either horizontal
 or vertical to have variability in boat placements
@@ -33,12 +42,7 @@ Points_t rotate(Points_t, uint8_t);
 
 
 /*
-Initialises boat sizes with the Points_t struct
-*/
-Points_t points_init(int8_t, int8_t, int8_t, int8_t);
-
-
-/*
+Takes the struxt, the boat matrix, the placement and the boat size
 Moves the current boat around the board with the navswitch
 this is achieved by updates the coordinates of the start
 and end positon -- when navswitch is pushed this sets boat
@@ -53,6 +57,13 @@ Points_t boat_size(uint8_t i);
 
 
 /*
+Shows the boats the user has already placed so they can
+know where they've gone
+*/
+void display_boats(int*);
+
+
+/*
 Main set up function which loops through the array of boat 
 sizes until all boats have been placed and the boat matrix
 is updated
@@ -60,10 +71,6 @@ is updated
 void set_up(int*);
 
 
-/*
-Shows the boats the user has already placed so they can
-know where they've gone
-*/
-void display_boats(int*);
+
 
 #endif

@@ -15,7 +15,7 @@
 #include "navswitch.h"
 #include "tinygl.h"
 #include "boat_setup.h"
-#include "../fonts/font3x5_1.h"
+#include "../fonts/font5x5_1.h"
 #include "ir_uart.h"
 #include "gameplay.h"
 #include "led_display.h"

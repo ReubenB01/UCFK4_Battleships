@@ -10,7 +10,7 @@
 
 #include "system.h"
 #include "tinygl.h"
-#include "../fonts/font3x5_1.h"
+#include "../fonts/font5x5_1.h"
 #include "pacer.h"
 #include "game.h"
 

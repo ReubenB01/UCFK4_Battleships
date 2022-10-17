@@ -10,7 +10,7 @@
 void inititalise_tinygl(void)
 {
     tinygl_init(1750);
-    tinygl_font_set (&font3x5_1);
+    tinygl_font_set (&font5x5_1);
     tinygl_text_speed_set(MESSAGE_RATE);
     tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
     tinygl_text_dir_set(TINYGL_TEXT_DIR_ROTATE);
@@ -26,14 +26,14 @@ void hit_message (int matrix[7][5], int x, int y, int* count)
     if (matrix[y][x] == 1) //if chosen coordinate is a ship
     {
         *count = *count + 1;
-        tinygl_draw_message("HIT", tinygl_point(0,1), 1); //display hit message
+        tinygl_text("HIT"); //display hit message
     }
     else if (matrix[y][x] == 0)
     {
-        tinygl_draw_message("MISS", tinygl_point(0,1), 1); //display miss message
+        tinygl_text("MISS"); //display miss message
         ptr[y][x] = 2; //set coordinate in matrix to 2
     }
-    for (int i = 0; i < time; i++) { //
+    for (int i = 0; i < 2000; i++) { //
         pacer_wait();
         tinygl_update();
     }
