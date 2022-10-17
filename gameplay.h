@@ -12,9 +12,17 @@
 #include "pacer.h"
 #include "navswitch.h"
 #include "tinygl.h"
-#include "game.h"
 #include "ir_uart.h"
 #include "../fonts/font5x5_1.h"
+
+#define HIT 'h'
+#define MISS 'm'
+#define READY 'r'
+#define FIRST_CHARACTER '6'
+#define LAST_CHARACTER 'X'
+#define WIDTH 5
+#define MAX_X 5
+#define MAX_Y 7
 
 /*
 Takes in the x and y co-ordinates and the shot matrix
