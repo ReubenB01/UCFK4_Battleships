@@ -12,6 +12,7 @@
 #include "tinygl.h"
 #include "button.h"
 #include "pacer.h"
+#include "gameplay.h"
 
 #define NUM_BOATS 4
 #define SMALL_BOAT 1
