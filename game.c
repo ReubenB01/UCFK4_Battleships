@@ -21,9 +21,9 @@ int main (void)
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0}
-                 };
+                };
 
-int shot_matrix[7][5] = {// Keeps track of the user's shots
+    int shot_matrix[7][5] = {// Keeps track of the user's shots
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
@@ -33,15 +33,15 @@ int shot_matrix[7][5] = {// Keeps track of the user's shots
                 {0, 0, 0, 0, 0}
                 };
 
-char character_matrix[7][5] = { //Each co-ordinate corresponds to a special character so can use putc function
-    {'6', '7', '8', '9', ':'},
-    {';', '<', '=', '>', '?'},
-    {'@', 'A', 'B', 'C', 'D'},
-    {'E', 'F', 'G', 'H', 'I'},
-    {'J', 'K', 'L', 'M', 'N'}, 
-    {'O', 'P', 'Q', 'R', 'S'},
-    {'T', 'U', 'V', 'W', 'X'}
-};
+    char character_matrix[7][5] = { //Each co-ordinate corresponds to a special character so can use putc function
+                {'6', '7', '8', '9', ':'},
+                {';', '<', '=', '>', '?'},
+                {'@', 'A', 'B', 'C', 'D'},
+                {'E', 'F', 'G', 'H', 'I'},
+                {'J', 'K', 'L', 'M', 'N'}, 
+                {'O', 'P', 'Q', 'R', 'S'},
+                {'T', 'U', 'V', 'W', 'X'}
+                };
 
     
     system_init();
@@ -80,6 +80,7 @@ char character_matrix[7][5] = { //Each co-ordinate corresponds to a special char
     
         if (turn == 2 && ir_uart_read_ready_p()) {
             char shot = ir_uart_getc();
+
             if (shot == HIT) {
                 update_matrix(x, y, (int*)shot_matrix);
                 hit_message(shot_matrix, x, y, &count);
@@ -91,10 +92,10 @@ char character_matrix[7][5] = { //Each co-ordinate corresponds to a special char
             }
         }
         
-        if (turn == 0) {      
+        if (turn == 0) { 
+
             if (ir_uart_read_ready_p()) { 
-                recieve_point(&x, &y, (char*)character_matrix, (int*)boat_matrix, &turn);
-                  
+                recieve_point(&x, &y, (char*)character_matrix, (int*)boat_matrix, &turn);                 
             }    
         }
         
