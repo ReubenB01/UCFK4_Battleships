@@ -1,3 +1,10 @@
+/**
+    @file game.h
+    @author T. Glubb & R. Brown
+    @date 17 October 2022
+    @brief Gameplay logic support
+*/
+
 #ifndef GAME_H
 #define GAME_H
 
@@ -11,6 +18,7 @@
 #include "../fonts/font3x5_1.h"
 #include "ir_uart.h"
 #include "gameplay.h"
+#include "led_display.h"
 
 
 #define PACER_RATE 500
@@ -21,32 +29,15 @@
 #define HIT 'h'
 #define MISS 'm'
 #define LOSE 'l'
+#define READY 'r'
 #define NUM_BOATS 4
-
-/**
-Takes coordinate player has fired at. 
-displays "HIT" message if a ship was placed on chosen coordinate.
-displays "MISS" message if no ship on chosen coordinate.
-coordinate is set to 2 if there was a hit.
-coordinate is set to 3 is there was a miss.
-*/ 
-void hit_message (int board[7][5], int x_cord, int y_cord, int* count);
-
-
-/**
-if matrix coordinate = 2, blink the led.
-if matrix coordinate = 3, leave led on.
-*/
-void display_hits(int board[7][5]);
-
-
-/**
-initialise tinygl.
-set text font size to 3x5.
-set text to scroll.
-set text scroll speed to the message rate.
-*/
-void inititalise_tinygl(void);
+#define SMALL_BOAT 1
+#define MEDIUM_BOAT 2
+#define LARGE_BOAT 3
+#define FIRST_CHARACTER '6'
+#define LAST_CHARACTER 'X'
+#define WIDTH 5
 
 
 #endif
+
