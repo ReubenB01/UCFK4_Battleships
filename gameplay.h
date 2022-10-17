@@ -14,6 +14,7 @@
 #include "tinygl.h"
 #include "ir_uart.h"
 #include "../fonts/font5x5_1.h"
+#include "boat_setup.h"
 
 #define HIT 'h'
 #define MISS 'm'
