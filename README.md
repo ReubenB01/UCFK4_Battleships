@@ -1,6 +1,6 @@
-ENCE260 Assignment 2020
-Group: 136
-Developers: Reuben Brown(RBR99) Treasa Glubb(TGL24)
+ENCE260 Assignment 2020 \n
+Group: 136 \n
+Developers: Reuben Brown(RBR99) Treasa Glubb(TGL24)\n
 
 ----------BATTLE SHIPS----------
 
