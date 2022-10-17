@@ -5,7 +5,9 @@
     @brief Main game modules
 */
 
-#include "game.h"
+#include "boat_setup.h"
+#include "gameplay.h"
+#include "led_display.h"
 
 
 int main (void)
