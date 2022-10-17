@@ -16,7 +16,7 @@ all: game.out
 
 
 # Compile: create object files from C source files.
-game.o: game.c ../../drivers/avr/system.h ../../utils/tinygl.h  ../../utils/pacer.h ../../drivers/navswitch.h ../../utils/pacer.c ../../utils/font.h ../../drivers/avr/timer.c boat_setup.c ../../drivers/button.c ../../drivers/avr/ir_uart.h ../../drivers/avr/prescale.c ../../drivers/avr/usart1.c ../../drivers/avr/timer0.c gameplay.h
+game.o: game.c ../../drivers/avr/system.h ../../utils/tinygl.h  ../../utils/pacer.h ../../drivers/navswitch.h ../../utils/pacer.c ../../utils/font.h ../../drivers/avr/timer.c boat_setup.c ../../drivers/button.c ../../drivers/avr/ir_uart.h ../../drivers/avr/prescale.c ../../drivers/avr/usart1.c ../../drivers/avr/timer0.c gameplay.h led_display.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 
@@ -63,19 +63,22 @@ prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/prescale.h ../../driv
 ir_uart.o: ../../drivers/avr/ir_uart.c ../../drivers/avr/ir_uart.h ../../drivers/avr/pio.h ../../drivers/avr/system.h ../../drivers/avr/timer0.h ../../drivers/avr/usart1.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
+led_display.o: led_display.c ../../drivers/avr/system.h ../../utils/pacer.h ../../fonts/font3x5_1.h ../../utils/tinygl.c game.h
+	$(CC) -c $(CFLAGS) $< -o $@
+
 gameplay.o: ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/navswitch.h gameplay.h
 
 
 
 # Link: create ELF output file from object files.
-game.out: game.o system.o display.o  navswitch.o pacer.o tinygl.o  pacer.o ledmat.o font.o timer.o  boat_setup.o button.o timer0.o usart1.o prescale.o ir_uart.o gameplay.o
+game.out: game.o system.o display.o  navswitch.o pacer.o tinygl.o  pacer.o ledmat.o font.o timer.o  boat_setup.o button.o timer0.o usart1.o prescale.o ir_uart.o gameplay.o led_display.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 	$(SIZE) $@
 
 
 # Target: clean project.
 .PHONY: clean
-clean: 
+clean:
 	-$(DEL) *.o *.out *.hex
 
 
@@ -84,5 +87,3 @@ clean:
 program: game.out
 	$(OBJCOPY) -O ihex game.out game.hex
 	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash game.hex; dfu-programmer atmega32u2 start
-
-
