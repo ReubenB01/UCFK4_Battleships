@@ -16,7 +16,7 @@
 
 /**
 initialise tinygl.
-set text font size to 3x5.
+set text font size to 5x5.
 set text to scroll.
 set text scroll speed to the message rate.
 */
@@ -24,7 +24,7 @@ void inititalise_tinygl(void);
 
 
 /**
-Takes coordinate player has fired at. 
+Takes coordinate player has fired at, the hit count and the shot matrix 
 displays "HIT" message if a ship was placed on chosen coordinate.
 displays "MISS" message if no ship on chosen coordinate.
 coordinate is set to 1 if there was a hit.
@@ -48,7 +48,8 @@ appears, a losing message sends to other player
 void win_screen(int*);
 
 /*
-If the losing message is recieved it appears on
+Takes shot count
+if the losing message is recieved it appears on
 the user's screen
 */
 void lose_screen(void);
