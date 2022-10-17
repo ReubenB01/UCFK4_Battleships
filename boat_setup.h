@@ -1,12 +1,10 @@
 #ifndef BOAT_SETUP_H
 #define BOAT_SETUP_H
 
-#include "system.h"
-#include "navswitch.h"
-#include "display.h"
 #include "tinygl.h"
 #include "button.h"
 #include "pacer.h"
+#include "navswitch.h"
 #include "game.h"
 
 typedef struct {
@@ -29,3 +27,5 @@ void set_up(int* matrix);
 void display_boats(int* matrix);
 
 #endif
+
+
