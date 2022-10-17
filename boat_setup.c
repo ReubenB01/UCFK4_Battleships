@@ -113,6 +113,10 @@ Points_t boat_size(uint8_t current_boat) {
 }
 
 
+/*
+Shows the boats the user has already placed so they can
+know where they've gone
+*/
 void display_boats(int* boat_matrix)
 {
     for (uint8_t i=0; i < MAX_X; i++) {
@@ -127,6 +131,11 @@ void display_boats(int* boat_matrix)
 }
 
 
+/*
+Main set up function which loops through the array of boat 
+sizes until all boats have been placed and the boat matrix
+is updated
+*/
 void set_up(int* boat_matrix) 
 {
     tinygl_init (1000);
@@ -136,8 +145,7 @@ void set_up(int* boat_matrix)
         uint8_t current_boat = boats[i]; //variable of the current boat size
         Points_t points = boat_size(current_boat);
         tinygl_draw_line(points.start, points.end, 1); 
-        while (placed!= 1)
-        {
+        while (placed!= 1) {
             pacer_wait();
             points = boat_movement(points, (int*)boat_matrix, &placed, current_boat);
             display_boats((int*)boat_matrix);
