@@ -12,7 +12,11 @@
 #include "tinygl.h"
 #include "button.h"
 #include "pacer.h"
-#include "game.h"
+
+#define NUM_BOATS 4
+#define SMALL_BOAT 1
+#define MEDIUM_BOAT 2
+#define LARGE_BOAT 3
 
 /*
 The struct keeps track of the coordinates of
