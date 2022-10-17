@@ -1,6 +1,6 @@
 # File:   Makefile
-# Author: M. P. Hayes, UCECE
-# Date:   12 Sep 2010
+# Author T. Glubb & R. Brown
+# Date 17 October 2022
 # Descr:  Makefile for game
 
 # Definitions.
@@ -18,8 +18,6 @@ all: game.out
 # Compile: create object files from C source files.
 game.o: game.c ../../drivers/avr/system.h ../../utils/tinygl.h  ../../utils/pacer.h ../../drivers/navswitch.h ../../utils/font.h ../../drivers/button.c ../../drivers/avr/ir_uart.h gameplay.h led_display.h boat_setup.h
 	$(CC) -c $(CFLAGS) $< -o $@
-
-
 
 boat_setup.o: boat_setup.c ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/button.h ../../drivers/navswitch.h
 	$(CC) -c $(CFLAGS) $< -o $@
@@ -67,7 +65,6 @@ led_display.o: led_display.c ../../drivers/avr/system.h ../../utils/pacer.h ../.
 	$(CC) -c $(CFLAGS) $< -o $@
 
 gameplay.o: gameplay.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../utils/pacer.h ../../utils/tinygl.h ../../drivers/navswitch.h game.h
-
 
 
 # Link: create ELF output file from object files.
