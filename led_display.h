@@ -12,7 +12,16 @@
 #include "tinygl.h"
 #include "../fonts/font5x5_1.h"
 #include "pacer.h"
-#include "game.h"
+#include "ir_uart.h"
+#include "boat_setup.h"
+
+
+#define BLINKING 100
+#define PACER_RATE 500
+#define MESSAGE_RATE 10
+#define MAX_X 5
+#define MAX_Y 7
+#define LOSE 'l'
 
 /**
 initialise tinygl.
