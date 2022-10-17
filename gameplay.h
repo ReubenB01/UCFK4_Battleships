@@ -6,14 +6,17 @@
 #include "navswitch.h"
 #include "tinygl.h"
 #include "game.h"
+#include "ir_uart.h"
+#include "../fonts/font3x5_1.h"
+
+void update_matrix(int x, int y, int* shot_matrix);
+
 
 /**
-If all ship tiles have been hit display "WIN" message for winner.
-End game.
+Player can use navswitch to select which tile to fire at.
 */
-void win_screen(int* count);
-void update_matrix(int x, int y, int* shot_matrix);
 void player_movement(int* x, int* y);
+
 
 /**
 //send ready signal after ships have been placed
