@@ -8,7 +8,7 @@ Developers: Reuben Brown(RBR99) Treasa Glubb(TGL24)
 A Two-player game using two UCFK4 (UC Funkit) microcontrollers. <br>
 Battleships is a stategy guessing game, fire at your opponent's ships and sink their fleet before they sink yours.
 
----------HOW TO DOWNLOAD---------
+----------HOW TO DOWNLOAD----------
 
 -Open terminal window and enter the desired directory. <br>
 -Run Command "git clone https://eng-git.canterbury.ac.nz/ence260-2022/group_136" to download the game files. <br>
@@ -16,7 +16,7 @@ Battleships is a stategy guessing game, fire at your opponent's ships and sink t
 -Plug both UCFK4 microcontrollers into the same computer.<br>
 -Run command "make program" twice to load the game onto both microcontrollers.
 
------------HOW TO PLAY-----------
+----------HOW TO PLAY----------
 
 Before the game starts, both players will be in the start menu. <br>
 Aim the infrared sensors on the microcontrollers towards each other so they can communicate. <br>
@@ -40,7 +40,8 @@ The LED display will tell you whether you hit or missed your opponent's ship.<br
 If you have hit a ship the tile you chose will blink.<br>
 If you miss your opponent's ship the tile you chose will stay on.<br>
 
----WINNING AND LOSING---
+---WINNING AND LOSING---  
+
 You and your opponent will take turns firing at each others ships.<br>
 First person to hit all 7 of their opponent's ship tiles wins.<br>
 "WIN" will be displayed on the winning player's LED display.<br>
